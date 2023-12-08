@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { TodoCard } from "./TodoCard";
+
 let i = 0;
 
 function App() {
   const [addTodo, setAddTodo] = useState([]);
+  const [inputText, setInputText] = useState("");
   return (
     <div
       style={{
@@ -22,17 +24,42 @@ function App() {
           onClick={() => {
             const newTodo = [...addTodo, i++];
             console.log(newTodo);
+            addTodo.filter();
             setAddTodo(newTodo);
           }}
         >
           新規作成
         </button>
-        {/* // ここにTodoCardを表示する */}
-        {addTodo.map((todo) => {
-          return <TodoCard key={todo} text={todo} />;
+        {addTodo.map((todo, i) => {
+          return (
+            <TodoCard
+              id={i}
+              text={todo}
+              addTodo={addTodo}
+              setAddTodo={setAddTodo}
+            />
+          );
         })}
       </div>
-      <div>テスト勉強</div>
+      <div>
+        <h2>新規登録</h2>
+        <input
+          onChange={(e) => {
+            console.log(e.target.value);
+            setInputText(e.target.value);
+          }}
+        />
+        <button
+          onClick={() => {
+            const newTodo = [...addTodo, inputText];
+            console.log(newTodo);
+            setAddTodo(newTodo);
+          }}
+        >
+          登録
+        </button>
+        <p>{inputText}</p>
+      </div>
     </div>
   );
 }

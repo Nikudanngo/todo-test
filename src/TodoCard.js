@@ -1,4 +1,4 @@
-export const TodoCard = ({ text }) => {
+export const TodoCard = ({ text, id, addTodo, setAddTodo }) => {
   return (
     <div
       style={{
@@ -18,6 +18,12 @@ export const TodoCard = ({ text }) => {
           backgroundColor: "transparent",
           color: "#FF0000",
           cursor: "pointer",
+        }}
+        onClick={() => {
+          const newTodo = addTodo.filter((todo, i) => {
+            return i !== id;
+          });
+          setAddTodo(newTodo);
         }}
       >
         削除
